@@ -5,11 +5,17 @@
  */
 package UserInterface.Customer;
 
+import Business.Flight.Airliner;
+import Business.Flight.AirlinerDirectory;
 import Business.Flight.FlightSchedule;
+import Business.Flight.FlightScheduleCatalog;
 import Business.Order.OrderList;
 import java.awt.CardLayout;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -19,12 +25,25 @@ public class SearchFlightJPanel extends javax.swing.JPanel {
 
     private JPanel rightJPanel;
     private OrderList orderList;
+    private Airliner airliner;
+    private AirlinerDirectory airlinerDir;
+    private FlightScheduleCatalog fsc;
+    
+    private String from;
+    private String to;
+    private String departureDate;
+    
     /**
      * Creates new form SearchFlightJPanel
      */
-    public SearchFlightJPanel(JPanel rightJPanel, OrderList ol) {
+    public SearchFlightJPanel(JPanel rightJPanel, OrderList ol, Airliner airliner, AirlinerDirectory ad, FlightScheduleCatalog fsc) {
         initComponents();
         this.rightJPanel = rightJPanel;
+        this.airlinerDir = ad;
+        this.fsc = fsc;
+        
+        
+        
     }
 
     /**
@@ -63,6 +82,11 @@ public class SearchFlightJPanel extends javax.swing.JPanel {
         jLabel10.setText("Date");
 
         btnSearch.setText("Search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
         searchFlightTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -132,7 +156,7 @@ public class SearchFlightJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 757, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(88, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,6 +205,50 @@ public class SearchFlightJPanel extends javax.swing.JPanel {
         layout.next(rightJPanel);
     }//GEN-LAST:event_btnBookActionPerformed
 
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+        from = txtFrom.getText();
+        to = txtTo.getText();
+        
+        Date date = DateChooser.getDate();
+        SimpleDateFormat format = new SimpleDateFormat("MM-dd-yyyy");
+        departureDate = format.format(date);
+        
+        populateTable();      
+
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void populateTable() {
+        DefaultTableModel model = (DefaultTableModel)searchFlightTable.getModel();
+        model.setRowCount(0);
+        
+        boolean found = false;
+        for (Airliner airliner : airlinerDir.getAirlinerDirectory()) {
+            for(FlightSchedule fs : airliner.getFlightScheduleCatalog().getFlightScheduleCatalog()){
+                if (fs.getFrom().equalsIgnoreCase(from) && fs.getTo().equalsIgnoreCase(to) && fs.getDepartureDate().equalsIgnoreCase(departureDate)) {
+                    Object row[] = new Object[10];
+                    row[0] = fs;
+                    row[1] = fs.getAirliner();
+                    row[2] = fs.getAirplane();
+                    row[3] = fs.getFrom();
+                    row[4] = fs.getTo();
+                    row[5] = fs.getDepartureDate();
+                    row[6] = fs.getDepartureTime();
+                    row[7] = fs.getArrivalTime();
+                    row[8] = " ";
+                    row[9] = fs.getPrice();
+                    
+                    model.addRow(row);
+                    found = true;
+                }
+            
+            
+            }
+        }
+        if (!found) {
+            JOptionPane.showMessageDialog(null, "Quantity cannot less than 1");
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser DateChooser;

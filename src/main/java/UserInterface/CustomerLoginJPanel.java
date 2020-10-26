@@ -24,12 +24,12 @@ public class CustomerLoginJPanel extends javax.swing.JPanel {
     /**
      * Creates new form CustomerLoginJPanel
      */
-    public CustomerLoginJPanel(JPanel rightJPanel, AirlinerDirectory ad, FlightScheduleCatalog fsc, OrderList ol) {
-        initComponents();
+    public CustomerLoginJPanel(JPanel rightJPanel, AirlinerDirectory ad, FlightScheduleCatalog fsc, OrderList ol) {     
         this.rightJPanel = rightJPanel;
         this.airlinerDirectory = ad;
         this.flightScheduleCatalog = fsc;
         this.orderList = ol;
+        initComponents();
     }
 
     /**

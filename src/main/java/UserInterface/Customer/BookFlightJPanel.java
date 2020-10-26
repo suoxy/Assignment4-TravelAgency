@@ -9,6 +9,7 @@ import Business.Flight.Airliner;
 import Business.Flight.AirlinerDirectory;
 import Business.Flight.FlightSchedule;
 import Business.Flight.FlightScheduleCatalog;
+import Business.Order.Order;
 import Business.Order.OrderList;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;

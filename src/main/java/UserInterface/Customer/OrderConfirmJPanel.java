@@ -5,9 +5,8 @@
  */
 package UserInterface.Customer;
 
-import Business.Flight.AirlinerDirectory;
+
 import Business.Flight.FlightSchedule;
-import Business.Flight.FlightScheduleCatalog;
 import Business.Order.Order;
 import Business.Order.OrderList;
 import Business.User.Passenger;
@@ -35,7 +34,6 @@ public class OrderConfirmJPanel extends javax.swing.JPanel {
         this.selectedFlight = selectedFlight;
         this.orderList = ol;
         this.pass = new Passenger();
-        
         
         fillInfo();
     }
@@ -332,14 +330,15 @@ public class OrderConfirmJPanel extends javax.swing.JPanel {
                         .addGap(37, 37, 37)
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtFirstname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel15)
-                            .addComponent(txtLastname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel16)
-                                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtFirstname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel14)
+                                .addComponent(jLabel15)
+                                .addComponent(txtLastname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtDepartureTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -374,14 +373,21 @@ public class OrderConfirmJPanel extends javax.swing.JPanel {
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         // TODO add your handling code here:
-        Order order = orderList.addOrder();
+        try {
+            Order order = orderList.addOrder();       
+            pass.setFirstName(txtFirstname.getText());
+            pass.setLastName(txtLastname.getText());
+            order.setPassenger(pass);
+            order.setFlight(selectedFlight);
+            
+        } catch (Exception e) {
+            
+        }
+
         
-//        pass.setFirstName(txtFirstname.getText());
-//        pass.setLastName(txtLastname.getText());
-//        order.setPassenger(pass);
-//        order.setFlight(selectedFlight);
-//        
-        JOptionPane.showMessageDialog(null, "Flight Book For " + txtFirstname.getText() + " " + txtLastname.getText() +  " Sucess");
+       
+        JOptionPane.showMessageDialog(null, "Flight Book For " + txtFirstname.getText() + " " + txtLastname.getText() +  " Success");
+        System.out.println(orderList.getOrderList().size());
     }//GEN-LAST:event_btnConfirmActionPerformed
 
 

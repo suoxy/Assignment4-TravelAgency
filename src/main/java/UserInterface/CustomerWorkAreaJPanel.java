@@ -110,7 +110,7 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
     private void btnSearchFlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchFlightActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout)rightJPanel.getLayout();
-        rightJPanel.add(new SearchFlightJPanel(rightJPanel, orderList));
+        rightJPanel.add(new SearchFlightJPanel(rightJPanel, orderList, airliner, airlinerDir, fsc));
         layout.next(rightJPanel);
     }//GEN-LAST:event_btnSearchFlightActionPerformed
 
@@ -124,7 +124,7 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
     private void btnViewOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewOrderActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout)rightJPanel.getLayout();
-        rightJPanel.add(new ViewOrderJPanel(rightJPanel));
+        rightJPanel.add(new ViewOrderJPanel(rightJPanel, orderList));
         layout.next(rightJPanel);
     }//GEN-LAST:event_btnViewOrderActionPerformed
 

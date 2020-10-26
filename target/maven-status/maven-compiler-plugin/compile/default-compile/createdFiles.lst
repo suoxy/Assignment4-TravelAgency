@@ -68,6 +68,7 @@ UserInterface/Admin/Flight/FlightScheduleMgrJPanel$2.class
 Business/Flight/Airliner.class
 UserInterface/Admin/Airliner/AirlinerMgrJPanel$1.class
 UserInterface/Admin/Account/CreateAccountJPanel$1.class
+UserInterface/Customer/SearchFlightJPanel$4.class
 UserInterface/TravelAgencyMain.class
 UserInterface/CustomerWorkAreaJPanel$2.class
 UserInterface/CustomerCreateAccountJPanel$2.class
