@@ -5,8 +5,15 @@
  */
 package UserInterface.Customer;
 
+import Business.Flight.Airliner;
+import Business.Flight.AirlinerDirectory;
+import Business.Flight.FlightSchedule;
+import Business.Flight.FlightScheduleCatalog;
+import Business.Order.OrderList;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,12 +22,43 @@ import javax.swing.JPanel;
 public class BookFlightJPanel extends javax.swing.JPanel {
 
     private JPanel rightJPanel;
+    private AirlinerDirectory airlinerDir;
+    private Airliner airliner;
+    private FlightScheduleCatalog fsc;
+    private OrderList orderList;
     /**
      * Creates new form BookFlightJPanel
      */
-    public BookFlightJPanel(JPanel rightJPanel) {
+    public BookFlightJPanel(JPanel rightJPanel, AirlinerDirectory airlinerDir, FlightScheduleCatalog fsc, OrderList orderList) {
         initComponents();
         this.rightJPanel = rightJPanel;
+        this.airlinerDir = airlinerDir;
+        this.fsc = fsc;
+        populateTable();
+    }
+    
+    private void populateTable() {
+        DefaultTableModel model = (DefaultTableModel)flightscheduleTable.getModel();
+        model.setRowCount(0);
+        for (Airliner airliner : airlinerDir.getAirlinerDirectory()) {
+            for(FlightSchedule fs : airliner.getFlightScheduleCatalog().getFlightScheduleCatalog()){
+            Object row[] = new Object[12];
+            row[0] = fs;
+            row[1] = fs.getAirliner();
+            row[2] = fs.getAirplane();
+            row[3] = fs.getFrom();
+            row[4] = fs.getTo();
+            row[5] = fs.getDepartureDate();
+            row[6] = fs.getDepartureTime();
+            row[7] = fs.getArrivalTime();
+            row[8] = fs.getAirplane().getCapacity();
+            row[9] = fs.getAirplane().getCapacity();
+            row[10] = fs.getPrice();
+            row[11] = fs.getStatus();
+            
+            model.addRow(row);
+            }
+        }
     }
 
     /**
@@ -60,7 +98,7 @@ public class BookFlightJPanel extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Flight No.", "Airliner", "Airplane", "From", "To", "Date", "Departure", "Arrival", "Duration", "Capacity", "Remaining", "Price"
+                "Flight No.", "Airliner", "Airplane", "From", "To", "Date", "Departure", "Arrival", "Capacity", "Remaining", "Price", "Status"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -87,14 +125,11 @@ public class BookFlightJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnBack))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(367, 367, 367)
-                                .addComponent(btnBookFlight)))
-                        .addGap(0, 0, 0))
+                        .addContainerGap()
+                        .addComponent(btnBack))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(367, 367, 367)
+                        .addComponent(btnBookFlight))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1)))
@@ -117,8 +152,16 @@ public class BookFlightJPanel extends javax.swing.JPanel {
 
     private void btnBookFlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookFlightActionPerformed
         // TODO add your handling code here:
+        
+        int row = flightscheduleTable.getSelectedRow();
+        if(row<0){
+            JOptionPane.showMessageDialog(null, "Pls select a row!!", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        FlightSchedule selectedFlight = (FlightSchedule)flightscheduleTable.getValueAt(row, 0);
+        
         CardLayout layout = (CardLayout)rightJPanel.getLayout();
-        rightJPanel.add(new OrderConfirmJPanel(rightJPanel));
+        rightJPanel.add(new OrderConfirmJPanel(rightJPanel, selectedFlight, orderList));
         layout.next(rightJPanel);
     }//GEN-LAST:event_btnBookFlightActionPerformed
 

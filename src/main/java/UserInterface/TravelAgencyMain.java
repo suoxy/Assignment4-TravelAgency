@@ -9,6 +9,7 @@ package UserInterface;
 import Business.Flight.Airliner;
 import Business.Flight.AirlinerDirectory;
 import Business.Flight.FlightScheduleCatalog;
+import Business.Order.OrderList;
 import java.awt.CardLayout;
 import java.util.List;
 
@@ -20,6 +21,7 @@ public class TravelAgencyMain extends javax.swing.JFrame {
 
     private FlightScheduleCatalog flightScheduleCatalog;
     private AirlinerDirectory airlinerDirectory;
+    private OrderList orderList;
     
     /** Creates new form TravelAgencyMain */
     public TravelAgencyMain() {
@@ -29,6 +31,7 @@ public class TravelAgencyMain extends javax.swing.JFrame {
         setLocation(200, 100);
         flightScheduleCatalog = new FlightScheduleCatalog();
         airlinerDirectory = new AirlinerDirectory();
+        orderList = new OrderList();
     }
 
     /** This method is called from within the constructor to
@@ -90,14 +93,14 @@ public class TravelAgencyMain extends javax.swing.JFrame {
     private void btnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout)rightJPanel.getLayout();
-        rightJPanel.add(new AdminLoginJPanel(rightJPanel, airlinerDirectory, flightScheduleCatalog));
+        rightJPanel.add(new AdminLoginJPanel(rightJPanel, airlinerDirectory, flightScheduleCatalog, orderList));
         layout.next(rightJPanel);
     }//GEN-LAST:event_btnAdminActionPerformed
 
     private void btnCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout)rightJPanel.getLayout();
-        rightJPanel.add(new CustomerLoginJPanel(rightJPanel));
+        rightJPanel.add(new CustomerLoginJPanel(rightJPanel, airlinerDirectory, flightScheduleCatalog, orderList));
         layout.next(rightJPanel);
     }//GEN-LAST:event_btnCustomerActionPerformed
 

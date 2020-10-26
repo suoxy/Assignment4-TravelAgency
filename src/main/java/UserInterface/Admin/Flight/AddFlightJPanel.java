@@ -467,7 +467,7 @@ public class AddFlightJPanel extends javax.swing.JPanel {
                     fs.setArrivalDate(arrivalDate());
                     fs.setArrivalHour(arrivalHourComboBox.getSelectedItem().toString());
                     fs.setArrivalMin(arrivalMinComboBox.getSelectedItem().toString());
-                    fs.setArrivalTime(arrivalDateTime());
+                    fs.setArrivalTime(arrivalTime());
                     
                     fs.setStatus(statusComboBox.getSelectedItem().toString());
                     fs.setPrice(Integer.parseInt(txtPrice.getText()));

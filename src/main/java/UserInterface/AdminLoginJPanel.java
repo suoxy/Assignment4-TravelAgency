@@ -7,6 +7,7 @@ package UserInterface;
 
 import Business.Flight.AirlinerDirectory;
 import Business.Flight.FlightScheduleCatalog;
+import Business.Order.OrderList;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 
@@ -18,15 +19,17 @@ public class AdminLoginJPanel extends javax.swing.JPanel {
 
     private FlightScheduleCatalog flightScheduleCatalog;
     private AirlinerDirectory airlinerDirectory;
+    private OrderList orderList;
     
     private JPanel rightJPanel;
     /**
      * Creates new form AdminLoginJPanel
      */
-    public AdminLoginJPanel(JPanel rightJPanel, AirlinerDirectory ad, FlightScheduleCatalog fsc) {
+    public AdminLoginJPanel(JPanel rightJPanel, AirlinerDirectory ad, FlightScheduleCatalog fsc, OrderList ol) {
         this.rightJPanel = rightJPanel;
         this.airlinerDirectory = ad;
         this.flightScheduleCatalog = fsc;
+        this.orderList = ol;
         initComponents();
         
     }
@@ -107,7 +110,7 @@ public class AdminLoginJPanel extends javax.swing.JPanel {
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         CardLayout layout = (CardLayout)rightJPanel.getLayout();
-        rightJPanel.add(new AdminWorkAreaJPanel(rightJPanel, airlinerDirectory, flightScheduleCatalog));
+        rightJPanel.add(new AdminWorkAreaJPanel(rightJPanel, airlinerDirectory, flightScheduleCatalog, orderList));
         layout.next(rightJPanel);
     }//GEN-LAST:event_btnSubmitActionPerformed
 

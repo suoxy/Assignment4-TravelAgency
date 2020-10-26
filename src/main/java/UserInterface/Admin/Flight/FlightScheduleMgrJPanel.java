@@ -38,7 +38,6 @@ public class FlightScheduleMgrJPanel extends javax.swing.JPanel {
         this.airliner = airliner;
         this.fsc = fsc;
         populateTable();
-        System.out.println(fsc.getFlightScheduleCatalog().size());
     }
     
         public void populateTable() {
@@ -169,12 +168,9 @@ public class FlightScheduleMgrJPanel extends javax.swing.JPanel {
                         .addComponent(btnUpdateFlight)
                         .addGap(664, 664, 664)
                         .addComponent(btnRemoveFlight))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 932, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnBack))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 932, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBack))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(348, 348, 348)
                 .addComponent(jLabel17)

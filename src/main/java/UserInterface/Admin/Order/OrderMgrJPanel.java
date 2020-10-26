@@ -5,8 +5,11 @@
  */
 package UserInterface.Admin.Order;
 
+import Business.Order.Order;
+import Business.Order.OrderList;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -14,12 +17,39 @@ import javax.swing.JPanel;
  */
 public class OrderMgrJPanel extends javax.swing.JPanel {
     private JPanel rightJPanel;
+    private OrderList orderList;
     /**
      * Creates new form OrderMgrJPanel
      */
-    public OrderMgrJPanel(JPanel rightJPanel) {
+    public OrderMgrJPanel(JPanel rightJPanel, OrderList ol) {
         initComponents();
         this.rightJPanel = rightJPanel;
+        this.orderList = ol;
+        
+        populateOrderTable();
+    }
+    
+    public void populateOrderTable() {
+        DefaultTableModel model = (DefaultTableModel)orderTable.getModel();
+        model.setRowCount(0);
+        for (Order order : orderList.getOrderList()) {
+           Object row[] = new Object[12];
+           row[0] = "0";
+           row[1] = order.getPassenger().getFirstName();
+           row[2] = order.getPassenger().getLastName();
+           row[3] = "";
+           row[4] = "";
+           row[5] = "";
+           row[6] = "";
+           row[7] = "";
+           row[8] = "";
+           row[9] = "";
+           row[10] = "";
+           row[11] = "";
+           
+           model.addRow(row);
+        }
+        
     }
 
     /**

@@ -5,6 +5,10 @@
  */
 package UserInterface;
 
+import Business.Flight.Airliner;
+import Business.Flight.AirlinerDirectory;
+import Business.Flight.FlightScheduleCatalog;
+import Business.Order.OrderList;
 import UserInterface.Customer.BookFlightJPanel;
 import UserInterface.Customer.SearchFlightJPanel;
 import UserInterface.Customer.ViewOrderJPanel;
@@ -18,12 +22,19 @@ import javax.swing.JPanel;
 public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
     
     private JPanel rightJPanel;
+    private AirlinerDirectory airlinerDir;
+    private Airliner airliner;
+    private FlightScheduleCatalog fsc;
+    private OrderList orderList;
     /**
      * Creates new form CustomerWorkAreaJPanel
      */
-    public CustomerWorkAreaJPanel(JPanel rightJPanel) {
+    public CustomerWorkAreaJPanel(JPanel rightJPanel, AirlinerDirectory ad, FlightScheduleCatalog fsc, OrderList ol) {
         initComponents();
         this.rightJPanel = rightJPanel;
+        this.airlinerDir = ad;
+        this.fsc = fsc;
+        this.orderList = ol;
     }
 
     /**
@@ -99,14 +110,14 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
     private void btnSearchFlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchFlightActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout)rightJPanel.getLayout();
-        rightJPanel.add(new SearchFlightJPanel(rightJPanel));
+        rightJPanel.add(new SearchFlightJPanel(rightJPanel, orderList));
         layout.next(rightJPanel);
     }//GEN-LAST:event_btnSearchFlightActionPerformed
 
     private void btnBookFlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookFlightActionPerformed
         // TODO add your handling code here:
         CardLayout layout = (CardLayout)rightJPanel.getLayout();
-        rightJPanel.add(new BookFlightJPanel(rightJPanel));
+        rightJPanel.add(new BookFlightJPanel(rightJPanel, airlinerDir, fsc, orderList));
         layout.next(rightJPanel);
     }//GEN-LAST:event_btnBookFlightActionPerformed
 

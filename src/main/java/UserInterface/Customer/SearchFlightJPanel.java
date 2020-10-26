@@ -5,7 +5,10 @@
  */
 package UserInterface.Customer;
 
+import Business.Flight.FlightSchedule;
+import Business.Order.OrderList;
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -15,10 +18,11 @@ import javax.swing.JPanel;
 public class SearchFlightJPanel extends javax.swing.JPanel {
 
     private JPanel rightJPanel;
+    private OrderList orderList;
     /**
      * Creates new form SearchFlightJPanel
      */
-    public SearchFlightJPanel(JPanel rightJPanel) {
+    public SearchFlightJPanel(JPanel rightJPanel, OrderList ol) {
         initComponents();
         this.rightJPanel = rightJPanel;
     }
@@ -164,8 +168,16 @@ public class SearchFlightJPanel extends javax.swing.JPanel {
 
     private void btnBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookActionPerformed
         // TODO add your handling code here:
+        
+        int row = searchFlightTable.getSelectedRow();
+        if(row<0){
+            JOptionPane.showMessageDialog(null, "Pls select a row!!", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        FlightSchedule selectedFlight = (FlightSchedule)searchFlightTable.getValueAt(row, 0);
+        
         CardLayout layout = (CardLayout)rightJPanel.getLayout();
-        rightJPanel.add(new OrderConfirmJPanel(rightJPanel));
+        rightJPanel.add(new OrderConfirmJPanel(rightJPanel, selectedFlight, orderList));
         layout.next(rightJPanel);
     }//GEN-LAST:event_btnBookActionPerformed
 
